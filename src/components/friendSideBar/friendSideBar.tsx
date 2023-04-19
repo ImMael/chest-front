@@ -3,16 +3,18 @@ import styled from "styled-components";
 import {FriendRequest} from "./friendRequest";
 import {Friend} from "../../domain/user/friend.domain";
 import FriendListItem from "./friendListItem";
+import Modal from "../modal/modal";
 
 type FriendSideBarProps = {
     isOpen: boolean;
     friendRequests: Friend[];
     friends: Friend[];
+    openModal: () => void;
 }
 export const FriendSideBar = (props: FriendSideBarProps) => {
-    const {isOpen, friendRequests, friends} = props
+    const {isOpen, friendRequests, friends, openModal} = props
     return (
-        <SideMenu isOpen={isOpen}>
+        <><SideMenu isOpen={isOpen}>
             <h2>Liste d'amis</h2>
             <MenuWrapper>
                 <RequestWrapper>
@@ -28,7 +30,11 @@ export const FriendSideBar = (props: FriendSideBarProps) => {
                     </FriendContainer>
                 </FriendWrapper>
             </MenuWrapper>
+            <MenuFooter>
+                <StyledButton onClick={openModal}>Envoyer une demande d'ami</StyledButton>
+            </MenuFooter>
         </SideMenu>
+        </>
     )
 }
 
@@ -53,7 +59,7 @@ const MenuWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
+    height: 80%;
     width: 100%;
 `;
 
@@ -88,5 +94,26 @@ const FriendContainer = styled.div`
     justify-content: center;
     width: 100%;
     `;
+
+const MenuFooter = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    `;
+
+const StyledButton = styled.button`
+    background-color: #1b1b1b;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    &:hover {
+        background-color: #3d3d3d;
+    }
+`;
 
 export default FriendSideBar;
