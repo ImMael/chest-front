@@ -9,7 +9,10 @@ export const LoginViewModel = () => {
 
     useEffect(() => {
         console.log(user);
-    }, [user]);
+        if (user) {
+            navigate("/");
+        }
+    }, [user])
 
     const login = () => {
         const user = {
@@ -22,6 +25,7 @@ export const LoginViewModel = () => {
             friends: []
         };
         setUser(user);
+        sessionStorage.setItem("user", JSON.stringify(user));
         navigate("/");
     }
 

@@ -12,6 +12,14 @@ const AuthContext = React.createContext<{
 const AuthProvider: FC<PropsWithChildren> = ({children}) => {
     const [user, setUser] = React.useState<User | null>(null)
 
+    const sessionUser = sessionStorage.getItem('user');
+
+    useEffect(() => {
+        if(sessionUser) {
+            setUser(JSON.parse(sessionUser))
+        }
+    }, []);
+
     return (
         <AuthContext.Provider value={{user, setUser}}>
             {children}
