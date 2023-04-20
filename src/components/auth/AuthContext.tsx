@@ -1,27 +1,28 @@
 import React, {FC, PropsWithChildren, useEffect} from "react";
 import {User} from "../../domain/user/user.domain";
 import {useNavigate} from "react-router-dom";
+import jwtDecode from "jwt-decode";
 const AuthContext = React.createContext<{
-    user: User | null
-    setUser: (user: User | null) => void
+    token: string | null
+    setToken: (token: string | null) => void
 }>({
-    user: null,
-    setUser: () => {}
+    token: null,
+    setToken: () => {}
 })
 
 const AuthProvider: FC<PropsWithChildren> = ({children}) => {
-    const [user, setUser] = React.useState<User | null>(null)
+    const [token, setToken] = React.useState<string | null>(null)
 
-    const sessionUser = sessionStorage.getItem('user');
+    const sessionToken: string = sessionStorage.getItem('JWT') || '';
 
     useEffect(() => {
-        if(sessionUser) {
-            setUser(JSON.parse(sessionUser))
+        if (sessionToken) {
+            setToken(sessionToken)
         }
-    }, []);
+    }, [sessionToken])
 
     return (
-        <AuthContext.Provider value={{user, setUser}}>
+        <AuthContext.Provider value={{token, setToken}}>
             {children}
         </AuthContext.Provider>
     )
