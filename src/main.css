@@ -2,3 +2,52 @@ body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
 }
+
+.cell {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell img {
+    width: 48px;
+    height: 48px;
+    position: relative;
+}
+
+.black {
+    background-color: saddlebrown;
+}
+
+.white {
+    background-color: lightgray;
+}
+
+.selected {
+    background-color: #ffb700;
+}
+
+.availible {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: green;
+}
+
+.lost {
+    min-height: 200px;
+    width: 30%;
+    border: 2px solid white;
+    border-radius: 20px;
+    background-color: #1B1B1B;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.lost h3 {
+    text-align: center;
+}
