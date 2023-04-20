@@ -12,7 +12,7 @@ interface PropsBoard {
   currentPlayer: Player | null;
 }
 
-const  BoardComponents: FC<PropsBoard>=({board, setBoard, swapPlayer, currentPlayer}) =>{
+const  BoardComponents: FC<PropsBoard>=({board, setBoard, currentPlayer}) =>{
 
   function click(cell: Cell) {
     if(selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
@@ -38,12 +38,13 @@ const  BoardComponents: FC<PropsBoard>=({board, setBoard, swapPlayer, currentPla
 
   function updateBoard() {
     const newBoard = board.getCopyBoard()
+    console.log(newBoard)
     setBoard(newBoard)
   }
 
   return (
     <DivCenterBoard>
-    <DivPlayer>Joueur :  {currentPlayer?.color}</DivPlayer>
+    <DivPlayer>Au tour de :  {currentPlayer?.color}</DivPlayer>
      <DivBoard>
       {board.cells.map((row, index) =>
         <React.Fragment key={index}>

@@ -33,22 +33,21 @@ function BoardView() {
     return (
         <DivBody>
             <DivWrapper>
-            <BoardComponents
-                board={board}
-                setBoard={setBoard}
-                currentPlayer={currentPlayer}
-                swapPlayer={swapPlayer}
-            />
-            <DivLostFigures>
-                <LostFigures
-                    title='Black figures'
-                    figures={board.lostBlackFigurs}
-                />
-                <LostFigures
-                    title='White figures'
-                    figures={board.lostWhiteFigurs}
-                />
-            </DivLostFigures>
+                <DivLostFigures>
+                    <LostFigures
+                        title='Pion noir'
+                        figures={board.lostBlackFigurs}
+                    />
+                    <BoardComponents
+                        board={board}
+                        setBoard={setBoard}
+                        currentPlayer={currentPlayer}
+                    />
+                    <LostFigures
+                        title='Pion blanc'
+                        figures={board.lostWhiteFigurs}
+                    />
+                </DivLostFigures>
             </DivWrapper>
         </DivBody>
     );
@@ -67,6 +66,7 @@ const DivLostFigures = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   margin-bottom: 30px;
+  padding: 30px;
 `
 const DivWrapper = styled.div`
   height: 100%;
