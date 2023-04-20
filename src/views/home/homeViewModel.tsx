@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useAuth} from "../../components/auth/AuthContext";
 import {useNavigate} from "react-router-dom";
 import {Friend} from "../../domain/user/friend.domain";
@@ -6,10 +6,18 @@ import jwtDecode from "jwt-decode";
 
 export const HomeViewModel = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
     const {token, setToken} = useAuth();
     const navigate = useNavigate();
     const [decodedToken, setDecodedToken] = useState<any>({});
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+    const friendRequests: Friend[] = [{id: 1, username: 'walidhaddoury'}];
+    const friends: Friend[] = [{id: 2, username: 'Nohan75'}];
+
+    const createLobby = (isPublic: boolean) => {
+        navigate('/lobby?p=' + isPublic)
+    }
 
     useEffect(() => {
         console.log(token)
@@ -19,9 +27,6 @@ export const HomeViewModel = () => {
             setDecodedToken(jwtDecode(token));
         }
     }, [token])
-
-    const friendRequests: Friend[] = [{id: 1, username: decodedToken.sub}];
-    const friends: Friend[] = [{id: 2, username: 'Nohan75'}];
 
     const test = () => {
         console.log('test')
@@ -37,7 +42,6 @@ export const HomeViewModel = () => {
         setIsLogoutModalOpen(false)
         navigate('/login');
     }
-
     return {
         test,
         openLogoutModal,
@@ -48,6 +52,9 @@ export const HomeViewModel = () => {
         friends,
         isLogoutModalOpen,
         setIsLogoutModalOpen,
+        openModal,
+        setOpenModal,
+        createLobby
     }
 }
 

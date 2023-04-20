@@ -1,26 +1,30 @@
 import React, {FC, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useAuth} from "../../components/auth/AuthContext";
 import homeViewModel from "./homeViewModel";
 import styled from "styled-components";
 import FriendSideBar from "../../components/friendSideBar/friendSideBar";
+import Modal from "../../components/modal/modal";
 import {PowerOutline} from "react-ionicons";
 import LogoutModal from "../../components/logout/logoutModal";
 export const HomeView: FC = () => {
     const {
-        test,
-        handleLogout,
-        openLogoutModal,
         isMenuOpen,
         setIsMenuOpen,
         friendRequests,
         friends,
-        isLogoutModalOpen,
-        setIsLogoutModalOpen } = homeViewModel();
+        openModal,
+        setOpenModal,
+        createLobby,
+        handleLogout,
+        openLogoutModal,
+        isLogoutModalOpenn
+        setIsLogoutModalOpen,
+    } = homeViewModel();
 
     return (
         <>
-            <FriendSideBar isOpen={isMenuOpen} friendRequests={friendRequests} friends={friends}/>
+            <FriendSideBar isOpen={isMenuOpen} friendRequests={friendRequests} friends={friends} openModal={() => setOpenModal(true)}/>
             <Container menuOpen={isMenuOpen}>
                 {isLogoutModalOpen && <LogoutModal setIsLogoutModalOpen={setIsLogoutModalOpen}/>}
                 <Wrapper>
@@ -35,10 +39,10 @@ export const HomeView: FC = () => {
                     </Header>
                     <ContentContainer>
                         <ContentWrapper>
-                            <StyledButton onClick={test}>Créer une partie privée</StyledButton>
-                            <StyledButton onClick={test}>Créer une partie publique</StyledButton>
-                            <StyledButton onClick={test}>Rejoindre une partie publique</StyledButton>
-                            <StyledButton onClick={test}>Rejoindre une partie privée</StyledButton>
+                            <StyledButton onClick={() => createLobby(false)}>Créer une partie privée</StyledButton>
+                            <StyledButton onClick={() => createLobby(true)}>Créer une partie publique</StyledButton>
+                            <StyledButton onClick={() => {}}>Rejoindre une partie publique</StyledButton>
+                            <StyledButton onClick={() => {}}>Rejoindre une partie privée</StyledButton>
                         </ContentWrapper>
                     </ContentContainer>
                     <FooterContainer>
@@ -48,6 +52,26 @@ export const HomeView: FC = () => {
                     </FooterContainer>
                 </Wrapper>
             </Container>
+            <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
+                <ModalContainer>
+                    <ModalWrapper>
+                        <ModalHeader>
+                            <h1>Ajouter un ami</h1>
+                        </ModalHeader>
+                        <ModalContent>
+                            <ModalContentWrapper>
+                                <Input type="text" placeholder="Nom d'utilisateur"/>
+                            </ModalContentWrapper>
+                        </ModalContent>
+                        <ModalFooter>
+                            <ModalFooterWrapper>
+                                <ValidButton onClick={() => setOpenModal(false)}>Ajouter</ValidButton>
+                                <AbortButton onClick={() => setOpenModal(false)}>Annuler</AbortButton>
+                            </ModalFooterWrapper>
+                        </ModalFooter>
+                    </ModalWrapper>
+                </ModalContainer>
+            </Modal>
         </>
     )
 }
@@ -135,6 +159,90 @@ const StyledButton = styled.button`
     color: #ffffff;
     cursor: pointer;
     `;
+
+const ModalContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    color: #ffffff;
+    `;
+
+const ModalWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    width: 50%;
+    background-color: #1b1b1b;
+    `;
+
+const ModalHeader = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+    width: 100%;
+    `;
+
+const ModalContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    width: 100%;
+    `;
+
+const ModalContentWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    `;
+
+const Input = styled.input`
+    padding: 10px;
+    background-color: #1b1b1b;
+    width: 300px;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    `;
+
+const ModalFooter = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+    width: 100%;
+    `;
+
+const ModalFooterWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
+    width: 100%;
+    `;
+
+const ValidButton = styled(StyledButton)`
+  background-color: #55881b;
+  border: 1px solid #55881b;
+`;
+const AbortButton = styled(StyledButton)`
+  background-color: #a23333;
+  border: 1px solid #a23333;
+`;
+
 
 
 
