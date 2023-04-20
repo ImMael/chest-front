@@ -1,28 +1,27 @@
-import React from "react";
-import LoginViewModel from "./loginViewModel";
-
+import React from 'react';
 import styled from "styled-components";
-import {Link} from "react-router-dom";
-export const LoginView = () => {
+import RegisterViewModel from "./registerViewModel";
 
-    const { login } = LoginViewModel()
+const RegisterView = () => {
+
+    const { register } = RegisterViewModel();
 
     return (
         <>
             <Container>
-                <Login>
-                    <Title>Connexion</Title>
-                    <LoginForm onSubmit={login}>
+                <Register>
+                    <Title>Inscription</Title>
+                    <RegisterForm onSubmit={register}>
+                        <UsernameInput type="text" placeholder="Username" />
                         <EmailInput type="email" placeholder="Email" />
                         <PasswordInput type="password" placeholder="Password" />
-                        <LoginButton type="submit">Se connecter</LoginButton>
-                    </LoginForm>
-                    <NoAccountText>Pas encore de compte ? <RegisterLink to="/register">S'inscrire</RegisterLink> </NoAccountText>
-                </Login>
+                        <RegisterButton type="submit">S'inscrire</RegisterButton>
+                    </RegisterForm>
+                </Register>
             </Container>
         </>
-    )
-}
+    );
+};
 
 const Container = styled.div`
       display: flex;
@@ -35,19 +34,19 @@ const Container = styled.div`
       color: #ffffff;
 `;
 
-const Login = styled.div`
+const Register = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-`
+`;
 
 const Title = styled.h1`
     margin-bottom: 20px;
-`
+`;
 
-const LoginForm = styled.form`
+const RegisterForm = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,7 +55,16 @@ const LoginForm = styled.form`
     height: 300px;
     border: 1px solid #fff;
     border-radius: 5px;
-`
+`;
+
+const UsernameInput = styled.input`
+    padding: 0 10px;
+    width: 80%;
+    height: 30px;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+`;
 
 const EmailInput = styled.input`
     padding: 0 10px;
@@ -65,7 +73,7 @@ const EmailInput = styled.input`
     margin-bottom: 10px;
     border: 1px solid #fff;
     border-radius: 5px;
-`
+`;
 
 const PasswordInput = styled.input`
     padding: 0 10px;
@@ -74,27 +82,17 @@ const PasswordInput = styled.input`
     margin-bottom: 10px;
     border: 1px solid #fff;
     border-radius: 5px;
-`
+`;
 
-const LoginButton = styled.button`
+const RegisterButton = styled.button`
     width: 80%;
     height: 30px;
     background-color: #1b1b1b;
     color: #fff;
+    border: 1px solid #fff;
     margin-top: 20px;
     margin-bottom: 10px;
-    border: 1px solid #fff;
     cursor: pointer;
-`
+`;
 
-const NoAccountText = styled.p`
-    margin-top: 10px;
-`
-
-const RegisterLink = styled(Link)`
-  margin-top: 20px;
-  text-decoration: none;
-  color: #178cdc;
-`
-
-export default LoginView
+export default RegisterView;

@@ -5,6 +5,8 @@ import homeViewModel from "./homeViewModel";
 import styled from "styled-components";
 import FriendSideBar from "../../components/friendSideBar/friendSideBar";
 import Modal from "../../components/modal/modal";
+import {PowerOutline} from "react-ionicons";
+import LogoutModal from "../../components/logout/logoutModal";
 export const HomeView: FC = () => {
     const {
         isMenuOpen,
@@ -13,16 +15,27 @@ export const HomeView: FC = () => {
         friends,
         openModal,
         setOpenModal,
-        createLobby
+        createLobby,
+        handleLogout,
+        openLogoutModal,
+        isLogoutModalOpen,
+        setIsLogoutModalOpen,
     } = homeViewModel();
 
     return (
         <>
             <FriendSideBar isOpen={isMenuOpen} friendRequests={friendRequests} friends={friends} openModal={() => setOpenModal(true)}/>
             <Container menuOpen={isMenuOpen}>
+                {isLogoutModalOpen && <LogoutModal setIsLogoutModalOpen={setIsLogoutModalOpen}/>}
                 <Wrapper>
                     <Header>
                         <h1>Home</h1>
+                        <LogoutButton
+                            color={'red'}
+                            height="30px"
+                            width="30px"
+                            onClick={() => openLogoutModal()}
+                        />
                     </Header>
                     <ContentContainer>
                         <ContentWrapper>
@@ -93,6 +106,13 @@ const Header = styled.div`
     height: 10%;
     width: 100%;
     `;
+
+const LogoutButton = styled(PowerOutline)`
+    position: absolute;
+    right: 60px;
+    top: 20px;
+    cursor: pointer;
+`;
 
 const ContentContainer = styled.div`
     display: flex;
