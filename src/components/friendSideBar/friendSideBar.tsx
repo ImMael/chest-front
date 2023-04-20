@@ -14,7 +14,8 @@ type FriendSideBarProps = {
 export const FriendSideBar = (props: FriendSideBarProps) => {
     const {isOpen, friendRequests, friends, openModal} = props
     return (
-        <><SideMenu isOpen={isOpen}>
+        <>
+            <SideMenu isOpen={isOpen}>
             <h2>Liste d'amis</h2>
             <MenuWrapper>
                 <RequestWrapper>

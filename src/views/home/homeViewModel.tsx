@@ -12,6 +12,10 @@ export const HomeViewModel = () => {
     const friendRequests: Friend[] = [{id: 1, username: 'walidhaddoury'}];
     const friends: Friend[] = [{id: 2, username: 'Nohan75'}];
 
+    const createLobby = (isPublic: boolean) => {
+        navigate('/lobby?p=' + isPublic)
+    }
+
     useEffect(() => {
         console.log(user)
         if(!user) {
@@ -24,7 +28,8 @@ export const HomeViewModel = () => {
         friendRequests,
         friends,
         openModal,
-        setOpenModal
+        setOpenModal,
+        createLobby
     }
 }
 

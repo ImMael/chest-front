@@ -1,12 +1,20 @@
 import React, {FC, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useAuth} from "../../components/auth/AuthContext";
 import homeViewModel from "./homeViewModel";
 import styled from "styled-components";
 import FriendSideBar from "../../components/friendSideBar/friendSideBar";
 import Modal from "../../components/modal/modal";
 export const HomeView: FC = () => {
-    const { isMenuOpen, setIsMenuOpen, friendRequests, friends, openModal, setOpenModal } = homeViewModel();
+    const {
+        isMenuOpen,
+        setIsMenuOpen,
+        friendRequests,
+        friends,
+        openModal,
+        setOpenModal,
+        createLobby
+    } = homeViewModel();
 
     return (
         <>
@@ -18,8 +26,8 @@ export const HomeView: FC = () => {
                     </Header>
                     <ContentContainer>
                         <ContentWrapper>
-                            <StyledButton onClick={() => {}}>Créer une partie privée</StyledButton>
-                            <StyledButton onClick={() => {}}>Créer une partie publique</StyledButton>
+                            <StyledButton onClick={() => createLobby(false)}>Créer une partie privée</StyledButton>
+                            <StyledButton onClick={() => createLobby(true)}>Créer une partie publique</StyledButton>
                             <StyledButton onClick={() => {}}>Rejoindre une partie publique</StyledButton>
                             <StyledButton onClick={() => {}}>Rejoindre une partie privée</StyledButton>
                         </ContentWrapper>
