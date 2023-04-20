@@ -18,7 +18,7 @@ export const HomeView: FC = () => {
         createLobby,
         handleLogout,
         openLogoutModal,
-        isLogoutModalOpenn
+        isLogoutModalOpen,
         setIsLogoutModalOpen,
     } = homeViewModel();
 
