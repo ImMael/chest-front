@@ -9,7 +9,6 @@ export const LoginViewModel = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(token);
         if (token) {
             navigate("/");
         }

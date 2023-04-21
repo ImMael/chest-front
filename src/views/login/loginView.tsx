@@ -16,6 +16,7 @@ export const LoginView = () => {
                         <EmailInput type="email" placeholder="Email" />
                         <PasswordInput type="password" placeholder="Password" />
                         <LoginButton type="submit">Se connecter</LoginButton>
+                        <ForgotPasswordLink to="/forgot-password">Mot de passe oublié ?</ForgotPasswordLink>
                     </LoginForm>
                     <NoAccountText>Pas encore de compte ? <RegisterLink to="/register">S'inscrire</RegisterLink> </NoAccountText>
                 </Login>
@@ -85,6 +86,12 @@ const LoginButton = styled.button`
     margin-bottom: 10px;
     border: 1px solid #fff;
     cursor: pointer;
+`
+
+const ForgotPasswordLink = styled(Link)`
+    margin-top: 10px;
+    text-decoration: none;
+    color: #178cdc;
 `
 
 const NoAccountText = styled.p`
