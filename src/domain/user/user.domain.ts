@@ -1,19 +1,19 @@
 export class User {
     id: number;
-    name: string;
+    username: string;
     email: string;
     password: string;
     createdAt: Date;
-    updatedAt: Date;
     friends: User[];
+    friendRequests: User[];
 
-    constructor(id: number, name: string, email: string, password: string, createdAt: Date, updatedAt: Date, friends: User[] = []) {
+    constructor(id: number, username: string, email: string, password: string, createdAt: Date, updatedAt: Date, friends: User[], friendRequests: User[]) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.friends = friends;
+        this.friendRequests = friendRequests;
     }
 }
