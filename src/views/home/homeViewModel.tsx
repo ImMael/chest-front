@@ -45,7 +45,7 @@ export const HomeViewModel = () => {
        const sendFriendRequest = async (friendEmail: string) => {
            const user = await getUserData();
            await axios.post(`http://localhost:3000/users/friend-request`, {
-               me: user,
+               me: user.email,
                email: friendEmail,
            }).catch((err) => {
                 setErrors({friendReqError: err.response.data.message})
