@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {FriendRequest} from "./friendRequest";
 import {Friend} from "../../domain/user/friend.domain";
 import FriendListItem from "./friendListItem";
 import Modal from "../modal/modal";
+import axios from "axios";
+import {useAuth} from "../auth/AuthContext";
+import jwtDecode from "jwt-decode";
+import {User} from "../../domain/user/user.domain";
+
 
 type FriendSideBarProps = {
     isOpen: boolean;
@@ -13,6 +18,7 @@ type FriendSideBarProps = {
 }
 export const FriendSideBar = (props: FriendSideBarProps) => {
     const {isOpen, friendRequests, friends, openModal} = props
+
     return (
         <>
             <SideMenu isOpen={isOpen}>
@@ -21,13 +27,13 @@ export const FriendSideBar = (props: FriendSideBarProps) => {
                 <RequestWrapper>
                     <h3>Demandes d'amis</h3>
                     <RequestContainer>
-                        {friendRequests && friendRequests.map((friend) => <FriendRequest username={friend.username}/>)}
+                        {friendRequests && friendRequests.map((friend) => <FriendRequest key={friend.id} email={friend.email} username={friend.username}/>)}
                     </RequestContainer>
                 </RequestWrapper>
                 <FriendWrapper>
                     <h3>Amis</h3>
                     <FriendContainer>
-                        {friends && friends.map((friend) => <FriendListItem username={friend.username}/>)}
+                        {friends && friends.map((friend) => <FriendListItem key={friend.id} username={friend.username}/>)}
                     </FriendContainer>
                 </FriendWrapper>
             </MenuWrapper>

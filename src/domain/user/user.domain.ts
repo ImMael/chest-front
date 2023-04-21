@@ -4,8 +4,8 @@ export class User {
     email: string;
     password: string;
     createdAt: Date;
-    friendsRequests: User[];
     friends: User[];
+    friendRequests: User[];
 
     constructor(id: string, username: string, email: string, password: string, createdAt: Date, friendsRequests: User[], friends: User[] = []) {
         this.id = id;
@@ -13,7 +13,7 @@ export class User {
         this.email = email;
         this.password = password;
         this.createdAt = createdAt;
-        this.friendsRequests = friendsRequests;
         this.friends = friends;
+        this.friendRequests = friendRequests;
     }
 }

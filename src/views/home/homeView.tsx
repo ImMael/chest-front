@@ -20,6 +20,10 @@ export const HomeView: FC = () => {
         openLogoutModal,
         isLogoutModalOpen,
         setIsLogoutModalOpen,
+        sendFriendRequest,
+        friendReqInput,
+        setFriendReqInput,
+        errors,
     } = homeViewModel();
 
     return (
@@ -60,12 +64,13 @@ export const HomeView: FC = () => {
                         </ModalHeader>
                         <ModalContent>
                             <ModalContentWrapper>
-                                <Input type="text" placeholder="Nom d'utilisateur"/>
+                                <Input onChange={(e) => setFriendReqInput(e.target.value)} type="text" placeholder="Nom d'utilisateur"/>
+                                {errors && <Error>{errors.friendReqError}</Error>}
                             </ModalContentWrapper>
                         </ModalContent>
                         <ModalFooter>
                             <ModalFooterWrapper>
-                                <ValidButton onClick={() => setOpenModal(false)}>Ajouter</ValidButton>
+                                <ValidButton onClick={() => sendFriendRequest(friendReqInput)}>Ajouter</ValidButton>
                                 <AbortButton onClick={() => setOpenModal(false)}>Annuler</AbortButton>
                             </ModalFooterWrapper>
                         </ModalFooter>
@@ -241,6 +246,12 @@ const ValidButton = styled(StyledButton)`
 const AbortButton = styled(StyledButton)`
   background-color: #a23333;
   border: 1px solid #a23333;
+`;
+
+const Error = styled.p`
+    color: #a23333;
+    font-size: 12px;
+    margin-top: 10px;
 `;
 
 
