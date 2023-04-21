@@ -5,19 +5,24 @@ import { Cell } from '../../models/Cell';
 import { Player } from '../../models/Player';
 import CellsComponent from './CellsComponent'
 import styled from 'styled-components';
+import { FigureNames } from '../../models/figuers/Figure';
+import { Modal } from '../../components/modal/modal';
+import {useNavigate} from "react-router-dom";
 
 interface PropsBoard {
   board: Board;
   setBoard: (board: Board) => void;
   currentPlayer: Player | null;
+  swapPlayer: () => void;
 }
 
-const  BoardComponents: FC<PropsBoard>=({board, setBoard, currentPlayer}) =>{
+const  BoardComponents: FC<PropsBoard>=({board, setBoard, swapPlayer, currentPlayer}) =>{
 
   function click(cell: Cell) {
     if(selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
       selectedCell.moveFigure(cell)
       setSelectedCell(null)
+      swapPlayer()
     } else  {
       if(cell.figure?.color === currentPlayer?.color)
         setSelectedCell(cell)
@@ -26,6 +31,14 @@ const  BoardComponents: FC<PropsBoard>=({board, setBoard, currentPlayer}) =>{
   }
 
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null)
+  const [playerText, setPlayerText] = useState<string | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate()
+
+  const returnHome = () => {
+    navigate('/')
+}
 
   useEffect(() => {
     highlightCells()
@@ -37,14 +50,28 @@ const  BoardComponents: FC<PropsBoard>=({board, setBoard, currentPlayer}) =>{
   }
 
   function updateBoard() {
+    finish()
     const newBoard = board.getCopyBoard()
-    console.log(newBoard)
     setBoard(newBoard)
   }
+  function finish(){
+    board.lostBlackFigurs.forEach((x) => {
+        if (x.name === FigureNames.KING) {
+          setPlayerText("Winner is White ")
+          setIsModalOpen(true);
+        }  
+    })
+    board.lostWhiteFigurs.forEach((x) => {
+        if (x.name === FigureNames.KING) {
+          setPlayerText("Winner is Black ")
+          setIsModalOpen(true);
+        }  
+    })
+}
 
   return (
     <DivCenterBoard>
-    <DivPlayer>Au tour de :  {currentPlayer?.color}</DivPlayer>
+    <DivPlayer>{playerText || `Au tour de : ${currentPlayer?.color}`}</DivPlayer>
      <DivBoard>
       {board.cells.map((row, index) =>
         <React.Fragment key={index}>
@@ -59,6 +86,10 @@ const  BoardComponents: FC<PropsBoard>=({board, setBoard, currentPlayer}) =>{
         </React.Fragment>
       )}
     </DivBoard>
+    <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}> 
+      <h2> {playerText} </h2>
+      <ButtonContainer onClick={() => returnHome()}>Retour lobby</ButtonContainer>
+    </Modal>
     </DivCenterBoard>
 
   )
@@ -86,4 +117,15 @@ const DivBoard = styled.div`
   transform: rotate(360deg)
   /* animation: rotate .3s linear infinite;  */
 `
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  
+  &:hover {
+    opacity: 0.8; // exemple de style de hover
+  }
+  `;
 export default BoardComponents

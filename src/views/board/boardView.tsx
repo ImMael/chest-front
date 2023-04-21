@@ -42,6 +42,7 @@ function BoardView() {
                         board={board}
                         setBoard={setBoard}
                         currentPlayer={currentPlayer}
+                        swapPlayer={swapPlayer}
                     />
                     <LostFigures
                         title='Pion blanc'
