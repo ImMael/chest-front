@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { FigureNames } from '../../models/figuers/Figure';
 import { Modal } from '../../components/modal/modal';
 import {useNavigate} from "react-router-dom";
+import { socket } from '../../socket';
 
 interface PropsBoard {
   board: Board;
@@ -42,6 +43,16 @@ const  BoardComponents: FC<PropsBoard>=({board, setBoard, swapPlayer, currentPla
 
   useEffect(() => {
     highlightCells()
+    socket.emit('join', { gameId: '1234' });
+
+    console.log("JE SUIS LA ")
+    socket.on('join', (data) => {
+      console.log(`COUCOU: ${JSON.stringify(data)}`);})
+
+    console.log(board.getCopyBoard())
+    return () => {
+      socket.off('join');
+    };
   }, [selectedCell])
 
   function highlightCells() {
@@ -53,7 +64,16 @@ const  BoardComponents: FC<PropsBoard>=({board, setBoard, swapPlayer, currentPla
     finish()
     const newBoard = board.getCopyBoard()
     setBoard(newBoard)
+    sendSocket()
   }
+
+  function sendSocket() {
+    socket.emit('game', { 
+      boardUpdate: board.getCopyBoard(),
+      turn : currentPlayer,
+    });
+  }
+
   function finish(){
     board.lostBlackFigurs.forEach((x) => {
         if (x.name === FigureNames.KING) {
