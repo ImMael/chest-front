@@ -4,6 +4,8 @@ import React from "react";
 import LoginView from "../../views/login/loginView";
 import RegisterView from "../../views/register/registerView";
 import LobbyView from "../../views/game/lobby/lobbyView";
+import ForgotPasswordView from "../../views/forgotPassword/forgotPasswordView";
+import ResetPasswordView from "../../views/resetPassword/resetPasswordView";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +23,14 @@ export const router = createBrowserRouter([
     {
         path: "/register",
         element: <RegisterView />,
+    },
+    {
+        path: "/forgot-password",
+        element: <ForgotPasswordView />,
+    },
+    {
+        path: "/reset-password/:email",
+        element: <ResetPasswordView />,
     }
 ]);
 
